@@ -14,5 +14,6 @@
     ```
     sudo ln -s /home/kanitkameh/.dotnet/dotnet /bin/dotnet
     ```
+4. Edit -> Preferences -> External Script Editor
 # Troubleshooting: 
 Try symlinks. If they don't work too, check your symlinks if they use relative instead of absolute paths.
