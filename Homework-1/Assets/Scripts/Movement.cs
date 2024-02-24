@@ -18,10 +18,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");  
-        // float vertical = Input.GetAxis("Vertical");  
-        Debug.Log(horizontal);
-        // Debug.Log(vertical);
+        horizontal = Input.GetAxis("Horizontal");
     }
     void FixedUpdate(){
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
