@@ -25,11 +25,19 @@ public class Jump : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collider2D){
-        Debug.Log("enter");
-        isOnGround = true;
+        Vector2 boxPosition = transform.position;
+        boxPosition.y -= 1.1f;
+        RaycastHit2D[] raycastHits2D = Physics2D.BoxCastAll(boxPosition, new Vector2(1,1), 0, new Vector2(0,0));
+
+        isOnGround = false;
+        foreach (var item in raycastHits2D)
+        {
+            if(item.collider.gameObject.name != "Player"){
+                isOnGround = true;
+            }
+        }
     }
     void OnCollisionExit2D(Collision2D collider2D){
-        Debug.Log("exit");
         isOnGround = false;
     }
 }
