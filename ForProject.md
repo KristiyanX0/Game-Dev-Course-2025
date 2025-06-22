@@ -1,0 +1,1 @@
+- Use Blend tree for running animation
