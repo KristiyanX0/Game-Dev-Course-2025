@@ -8,11 +8,26 @@ public class Jump : MonoBehaviour
     bool isOnGround = false;
     public float jumpForce = 10f; // Global variable for jump force
     Animator animator;
+    private AudioSource audioSource; // Reference to the AudioSource component
+    public AudioClip[] jumpSounds; // Array of sounds to play when jumping
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        
+        // Find AudioSource with tag "Jump"
+        GameObject audioObject = GameObject.FindWithTag("audio");
+        if (audioObject != null)
+        {
+            audioSource = audioObject.GetComponent<AudioSource>();
+        }
+
+        // Add AudioSource component if it doesn't exist
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -31,6 +46,16 @@ public class Jump : MonoBehaviour
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             isJumping = false;
             animator.SetBool("Jump", true);
+            
+            // Play a random jump sound if available
+            if (jumpSounds != null && jumpSounds.Length > 0 && audioSource != null)
+            {
+                AudioClip randomSound = jumpSounds[Random.Range(0, jumpSounds.Length)];
+                if (randomSound != null)
+                {
+                    audioSource.PlayOneShot(randomSound);
+                }
+            }
         }
 
         if (GetComponent<Rigidbody2D>().velocity.y < 0)
